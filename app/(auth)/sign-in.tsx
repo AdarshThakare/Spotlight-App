@@ -1,6 +1,6 @@
 import { styles } from "@/assets/styles/auth.styles";
 import { COLORS } from "@/constants/theme";
-import { useSignUp } from "@clerk/clerk-expo";
+import { useSignUp, useSSO } from "@clerk/clerk-expo";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import * as React from "react";
@@ -9,11 +9,28 @@ import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp();
   const router = useRouter();
+  const { startSSOFlow } = useSSO();
 
   const [emailAddress, setEmailAddress] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [pendingVerification, setPendingVerification] = React.useState(false);
   const [code, setCode] = React.useState("");
+
+  const handleGoogleSignIn = async () => {
+    // Handle Google sign-in logic here
+    try {
+      const { createdSessionId, setActive } = await startSSOFlow({
+        strategy: "oauth_google",
+      });
+
+      if (setActive && createdSessionId) {
+        setActive({ session: createdSessionId });
+        router.replace("/(tabs)");
+      }
+    } catch (err) {
+      console.log("OAuth error", err);
+    }
+  };
 
   // Handle submission of sign-up form
   const onSignUpPress = async () => {
@@ -106,9 +123,7 @@ export default function SignUpScreen() {
       <View style={styles.loginSection}>
         <TouchableOpacity
           style={styles.googleButton}
-          onPress={() => {
-            // Handle Google sign-in here
-          }}
+          onPress={handleGoogleSignIn}
           activeOpacity={0.9}
         >
           <View style={styles.googleIconContainer}>
