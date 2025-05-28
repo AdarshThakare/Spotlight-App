@@ -1,8 +1,8 @@
-import { COLORS } from "@/constants/theme";
+import { COLORS } from "../constants/theme";
 
 import { StatusBar } from "react-native";
 
-import ClerkAndConvexProvider from "@/components/ClerkAndConvexProvider";
+import ClerkAndConvexProvider from "../components/ClerkAndConvexProvider";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import InitialLayout from "../components/InitialLayout";
 

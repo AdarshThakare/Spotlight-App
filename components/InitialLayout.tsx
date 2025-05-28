@@ -2,7 +2,7 @@ import { useAuth } from "@clerk/clerk-expo";
 import { Stack, useRouter, useSegments } from "expo-router";
 import { useEffect } from "react";
 
-// hangle authentication and navigation
+// handle authentication and navigation
 
 export default function InitialLayout() {
   const { isLoaded, isSignedIn } = useAuth();
