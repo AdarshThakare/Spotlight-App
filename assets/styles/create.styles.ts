@@ -55,6 +55,7 @@ export const styles = StyleSheet.create({
   emptyImageText: {
     color: COLORS.grey,
     fontSize: 16,
+    paddingBottom: 60,
   },
   content: {
     flex: 1,

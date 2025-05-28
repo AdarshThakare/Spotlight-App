@@ -13,6 +13,7 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as controllers_postController from "../controllers/postController.js";
 import type * as controllers_userController from "../controllers/userController.js";
 import type * as http from "../http.js";
 
@@ -25,6 +26,7 @@ import type * as http from "../http.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  "controllers/postController": typeof controllers_postController;
   "controllers/userController": typeof controllers_userController;
   http: typeof http;
 }>;
