@@ -1,14 +1,93 @@
+import { styles } from "@/assets/styles/feed.styles";
+import { Loader } from "@/components/Loader";
+import Post from "@/components/Post";
+import Story from "@/components/Story";
+import { STORIES } from "@/constants/mock-data";
+import { COLORS } from "@/constants/theme";
+import { api } from "@/convex/_generated/api";
+import { useAuth } from "@clerk/clerk-expo";
+import { Ionicons } from "@expo/vector-icons";
+import { useQuery } from "convex/react";
 import React from "react";
-import { Text, View } from "react-native";
-import SignOutButton from "../../components/SignOutButton";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 const Home = () => {
+  const { signOut } = useAuth();
+
+  const post = useQuery(api.controllers.postController.getFeedPosts);
+
+  if (post === undefined) return <Loader />;
+  if (post.length === 0)
+    return (
+      <View style={styles.container}>
+        {/* Header */}
+        <View style={styles.header}>
+          <Text style={styles.headerTitle}>Spotlight</Text>
+          <TouchableOpacity onPress={() => signOut()}>
+            <Ionicons name="log-out-outline" size={24} color={COLORS.white} />
+          </TouchableOpacity>
+        </View>
+
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 10 }}
+        >
+          {/* Stories */}
+          {STORIES.map((story) => (
+            <Story key={story.id} story={story} />
+          ))}
+        </ScrollView>
+        {/* Posts */}
+        <NoPostsFound />
+      </View>
+    );
+
   return (
-    <View>
-      <Text>Home</Text>
-      <SignOutButton />
+    <View style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Spotlight</Text>
+        <TouchableOpacity onPress={() => signOut()}>
+          <Ionicons name="log-out-outline" size={24} color={COLORS.white} />
+        </TouchableOpacity>
+      </View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 50 }}
+      >
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 10 }}
+        >
+          {/* Stories */}
+          {STORIES.map((story) => (
+            <Story key={story.id} story={story} />
+          ))}
+
+          {/* Posts */}
+        </ScrollView>
+
+        {post.map((post) => (
+          <Post key={post._id} post={post} />
+        ))}
+      </ScrollView>
     </View>
   );
 };
 
 export default Home;
+
+const NoPostsFound = () => (
+  <View
+    style={{
+      flex: 1,
+      backgroundColor: COLORS.background,
+      alignItems: "center",
+      marginBottom: 80,
+    }}
+  >
+    <Text style={{ fontSize: 20, color: COLORS.primary }}>No posts yet</Text>
+  </View>
+);

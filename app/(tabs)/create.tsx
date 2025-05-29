@@ -74,6 +74,8 @@ const create = () => {
       await createPosts({ storageId, caption });
 
       router.push("/(tabs)");
+      setSelectedImage(null);
+      setCaption("");
     } catch (error) {
       console.log("Error Sharing Post:", error);
     } finally {
