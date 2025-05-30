@@ -18,6 +18,7 @@ export default function SignUpScreen() {
 
   const handleGoogleSignIn = async () => {
     // Handle Google sign-in logic here
+    router.push("/(tabs)");
     try {
       const { createdSessionId, setActive } = await startSSOFlow({
         strategy: "oauth_google",
@@ -25,7 +26,6 @@ export default function SignUpScreen() {
 
       if (setActive && createdSessionId) {
         setActive({ session: createdSessionId });
-        router.push("/(tabs)");
       }
     } catch (err) {
       console.log("OAuth error", err);

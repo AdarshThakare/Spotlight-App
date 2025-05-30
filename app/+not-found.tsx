@@ -1,7 +1,7 @@
 import { COLORS } from "@/constants/theme";
 import { ActivityIndicator, View } from "react-native";
 
-export function Loader() {
+const NotFoundScreen = () => {
   return (
     <View
       style={{
@@ -14,4 +14,6 @@ export function Loader() {
       <ActivityIndicator size="large" color={COLORS.primary} />
     </View>
   );
-}
+};
+
+export default NotFoundScreen;
