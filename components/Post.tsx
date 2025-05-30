@@ -7,7 +7,9 @@ import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { styles } from "../assets/styles/feed.styles";
 // import CommentsModal from "./CommentsModal";
+import { api } from "@/convex/_generated/api";
 import { useUser } from "@clerk/clerk-expo";
+import { useMutation } from "convex/react";
 import { formatDistanceToNow } from "date-fns";
 
 type PostProps = {
@@ -30,10 +32,22 @@ type PostProps = {
 
 export default function Post({ post }: PostProps) {
   const [isLiked, setIsLiked] = useState(post.isLiked);
+  const [likesCount, setLikeCount] = useState(post.likes);
+
   const [isBookmarked, setIsBookmarked] = useState(post.isBookmarked);
   const [showComments, setShowComments] = useState(false);
 
   const { user } = useUser();
+  const toggleLike = useMutation(api.controllers.likeController.toggleLike);
+
+  const handleLike = async () => {
+    try {
+      const newIsLiked = await toggleLike({ postId: post._id });
+      setIsLiked(newIsLiked);
+    } catch (error) {
+      console.log("Error toggle like: ", error);
+    }
+  };
 
   return (
     <View style={styles.post}>
@@ -75,7 +89,7 @@ export default function Post({ post }: PostProps) {
       {/* POST ACTIONS */}
       <View style={styles.postActions}>
         <View style={styles.postActionsLeft}>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={handleLike}>
             <Ionicons
               name={isLiked ? "heart" : "heart-outline"}
               size={24}

@@ -27,7 +27,7 @@ export const STORIES = [
   },
   {
     id: "5",
-    username: "Poha",
+    username: "Badak",
     avatar:
       "https://media-bom2-2.cdn.whatsapp.net/v/t61.24694-24/486446775_1075349821070335_2390253948714519468_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa1gFN0erG_ZD7RBWlHIk433tTT5C9Yrfh8Zho9AvxZneL4Q&oe=6845831C&_nc_sid=5e03e0&_nc_cat=103",
     hasStory: true,

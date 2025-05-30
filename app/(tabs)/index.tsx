@@ -9,7 +9,13 @@ import { useAuth } from "@clerk/clerk-expo";
 import { Ionicons } from "@expo/vector-icons";
 import { useQuery } from "convex/react";
 import React from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 const Home = () => {
   const { signOut } = useAuth();
@@ -22,7 +28,7 @@ const Home = () => {
       <View style={styles.container}>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>Spotlight</Text>
+          <Text style={styles.headerTitle}>spotlight</Text>
           <TouchableOpacity onPress={() => signOut()}>
             <Ionicons name="log-out-outline" size={24} color={COLORS.white} />
           </TouchableOpacity>
@@ -52,33 +58,35 @@ const Home = () => {
           <Ionicons name="log-out-outline" size={24} color={COLORS.white} />
         </TouchableOpacity>
       </View>
-      <ScrollView
+
+      <FlatList
+        data={post}
+        renderItem={({ item }) => <Post post={item} />}
+        keyExtractor={(item) => item._id}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 50 }}
-      >
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingBottom: 10 }}
-        >
-          {/* Stories */}
-          {STORIES.map((story) => (
-            <Story key={story.id} story={story} />
-          ))}
-
-          {/* Posts */}
-        </ScrollView>
-
-        {post.map((post) => (
-          <Post key={post._id} post={post} />
-        ))}
-      </ScrollView>
+        contentContainerStyle={{ paddingBottom: 60 }}
+        ListHeaderComponent={<StoriesSection />}
+      />
     </View>
   );
 };
 
 export default Home;
 
+const StoriesSection = () => {
+  return (
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{ paddingBottom: 10 }}
+    >
+      {/* Stories */}
+      {STORIES.map((story) => (
+        <Story key={story.id} story={story} />
+      ))}
+    </ScrollView>
+  );
+};
 const NoPostsFound = () => (
   <View
     style={{

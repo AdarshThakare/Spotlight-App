@@ -53,6 +53,7 @@ const create = () => {
   const createPosts = useMutation(api.controllers.postController.createPost);
 
   const handleShare = async () => {
+    setIsSharing(true);
     if (!selectedImage) return;
 
     try {
