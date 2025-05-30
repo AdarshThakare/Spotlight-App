@@ -185,10 +185,10 @@ const create = () => {
                   style={styles.captionInput}
                   placeholder="Write a caption"
                   placeholderTextColor={COLORS.grey}
-                  multiline
                   value={caption}
                   onChangeText={setCaption}
                   editable={!isSharing}
+                  multiline
                 />
               </View>
             </View>

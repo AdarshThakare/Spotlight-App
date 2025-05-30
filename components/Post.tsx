@@ -11,6 +11,7 @@ import { api } from "@/convex/_generated/api";
 import { useUser } from "@clerk/clerk-expo";
 import { useMutation } from "convex/react";
 import { formatDistanceToNow } from "date-fns";
+import CommentsModal from "./CommentsModal";
 
 type PostProps = {
   post: {
@@ -139,12 +140,11 @@ export default function Post({ post }: PostProps) {
           {formatDistanceToNow(post._creationTime, { addSuffix: true })}
         </Text>
       </View>
-      {/* 
       <CommentsModal
         postId={post._id}
         visible={showComments}
         onClose={() => setShowComments(false)}
-      /> */}
+      />
     </View>
   );
 }

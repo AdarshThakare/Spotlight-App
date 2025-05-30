@@ -13,6 +13,7 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as controllers_commentController from "../controllers/commentController.js";
 import type * as controllers_likeController from "../controllers/likeController.js";
 import type * as controllers_postController from "../controllers/postController.js";
 import type * as controllers_userController from "../controllers/userController.js";
@@ -27,6 +28,7 @@ import type * as http from "../http.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  "controllers/commentController": typeof controllers_commentController;
   "controllers/likeController": typeof controllers_likeController;
   "controllers/postController": typeof controllers_postController;
   "controllers/userController": typeof controllers_userController;
