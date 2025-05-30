@@ -29,7 +29,7 @@ export const getNotifications = query({
           ...notification,
           sender: {
             _id: sender._id,
-            username: sender.usermame,
+            username: sender.username,
             image: sender.image,
           },
           post,

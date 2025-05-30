@@ -3,7 +3,7 @@ import { v } from "convex/values";
 
 export default defineSchema({
   users: defineTable({
-    usermame: v.string(),
+    username: v.string(),
     fullname: v.string(),
     email: v.string(),
     bio: v.optional(v.string()),
@@ -36,7 +36,7 @@ export default defineSchema({
     .index("by_post", ["postId"])
     .index("by_user_and_post", ["userId", "postId"]),
 
-  follows: defineTable({
+  followers: defineTable({
     followerId: v.id("users"),
     followingId: v.id("users"),
   })
