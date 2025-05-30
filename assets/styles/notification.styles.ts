@@ -13,8 +13,8 @@ export const styles = StyleSheet.create({
     borderBottomColor: COLORS.surface,
   },
   headerTitle: {
-    fontSize: 24,
-    fontFamily: "JetBrainsMono-Medium",
+    letterSpacing: 2,
+    fontSize: 22,
     color: COLORS.primary,
   },
   listContainer: {

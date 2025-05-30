@@ -25,7 +25,7 @@ export default function SignUpScreen() {
 
       if (setActive && createdSessionId) {
         setActive({ session: createdSessionId });
-        router.replace("/(tabs)");
+        router.push("/(tabs)");
       }
     } catch (err) {
       console.log("OAuth error", err);

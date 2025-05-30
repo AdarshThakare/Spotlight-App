@@ -11,6 +11,7 @@ import { useQuery } from "convex/react";
 import React from "react";
 import {
   FlatList,
+  Image,
   ScrollView,
   Text,
   TouchableOpacity,
@@ -93,9 +94,14 @@ const NoPostsFound = () => (
       flex: 1,
       backgroundColor: COLORS.background,
       alignItems: "center",
-      marginBottom: 80,
+      marginBottom: 400,
     }}
   >
+    <Image
+      source={require("./../../assets/images/noposts.png")}
+      resizeMode="cover"
+      style={{ height: 250, width: 250, opacity: 0.8 }}
+    />
     <Text style={{ fontSize: 20, color: COLORS.primary }}>No posts yet</Text>
   </View>
 );
